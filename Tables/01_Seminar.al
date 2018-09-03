@@ -7,10 +7,23 @@ table 123456701 "CSD Seminar"
         field(10;"No.";Code[20])
         {
             Caption = 'No.';
+            trigger OnValidate()
+            begin
+                if "No." <> xRec."No." then begin
+                    SeminarSetup.GET;
+                    NoSeriesMgt.TestManual(SeminarSetup."Seminar Nos.");
+                    "No. Series" := '';
+                end;
+            end;
         }
         field(20;"Name";Text[50])
         {
             Caption = 'Name';
+            trigger OnValidate()
+            begin
+                IF "Search Name" = UPPERCASE(xRec.Name) then
+                    "Search Name" := UPPERCASE(Name);
+            end;
         }
         field(30;"Duration";decimal)
         {
@@ -54,6 +67,11 @@ table 123456701 "CSD Seminar"
         {
             Caption = 'Gen. Prod. Posting Group';
             TableRelation = "Gen. Product Posting Group";
+            trigger OnValidate()
+            begin
+                IF GenProdPostingGroup.ValidateVatProdPostingGroup(GenProdPostingGroup,"Gen. Prod. Posting Group") then
+                  VALIDATE("Vat. Prod. Posting Group",GenProdPostingGroup."Def. VAT Prod. Posting Group");
+            end;
         }
         field(120;"Vat. Prod. Posting Group";Code[10])
         {
@@ -74,29 +92,56 @@ table 123456701 "CSD Seminar"
         {
             Clustered = true;
         }
-        key(Search;"Search Name")
+        key(Key1;"Search Name")
         {
-            Clustered = false;
         }
     }
     
     var
-        myInt : Integer;
+        SeminarSetup : Record "CSD Seminar Setup";
+        //CommentLine : Record "CSD Seminar Comment Line";
+        Seminar : Record "CSD Seminar";
+        GenProdPostingGroup: Record "Gen. Product Posting Group";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
 
     trigger OnInsert();
     begin
+        if "No."='' then begin
+            SeminarSetup.get;
+            SeminarSetup.TestField("Seminar Nos.");
+            NoSeriesMgt.InitSeries(SeminarSetup."Seminar Nos.",xRec."No. Series",0D,"No.","No. Series");
+        end;
     end;
 
     trigger OnModify();
     begin
+        "Last Modified Date" := Today;
     end;
 
     trigger OnDelete();
     begin
+        //CommentLine.Reset;
+        //CommentLine.SetRange("Table Name",CommentLine."Table Name"::Seminar);
+        //CommentLine.SetRange("No.","No.");
+        // CommentLine.DeleteAll;
     end;
 
     trigger OnRename();
     begin
+        "Last Modified Date" := Today;
+    end;
+    procedure AssistEdit():Boolean;
+    begin
+        with Seminar do begin
+            Seminar := Rec;
+            SeminarSetup.get;
+            SeminarSetup.TestField("Seminar Nos.");
+            IF NoSeriesMgt.SelectSeries(SeminarSetup."Seminar Nos.",xRec."No. Series","No. Series") THEN begin
+                NoSeriesMgt.SetSeries("No.");
+                Rec := Seminar;
+                Exit(true);
+            END;
+        end;
     end;
 
 }
