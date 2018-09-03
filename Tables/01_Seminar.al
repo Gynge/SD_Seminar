@@ -25,7 +25,7 @@ table 123456701 "CSD Seminar"
                     "Search Name" := UPPERCASE(Name);
             end;
         }
-        field(30;"Duration";decimal)
+        field(30;"Seminar Duration";decimal)
         {
             Caption ='Duration';
             DecimalPlaces = 0:1;
