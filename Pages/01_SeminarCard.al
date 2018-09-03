@@ -74,13 +74,19 @@ page 123456701 "CSD Seminar Card"
 
     actions
     {
-        area(processing)
+        area(Navigation)
         {
-            action(ActionName)
+            group("Seminar")
             {
-                trigger OnAction();
-                begin
-                end;
+                action("Comments")
+                {
+                    //RunObject=page "Seminar Comment Sheet";
+                    //RunPageLink = "Table Name" = const(Seminar),"No." = field("No.");
+                    Image = Comment;
+                    Promoted = true;
+                    PromotedIsBig = true;
+                    PromotedOnly = true;
+                }
             }
         }
     }
