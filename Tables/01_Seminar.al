@@ -41,6 +41,8 @@ table 123456701 "CSD Seminar"
         field(90;"Comment";Boolean)
         {
             Caption ='Comment';
+            FieldClass = FlowField;
+            //CalcFormula=exits("Seminar comment Line" where("Table Name" = const("Seminar"), "No."=Field("No.")));
             Editable = false;
         }
         field(100;"Price";Decimal)
