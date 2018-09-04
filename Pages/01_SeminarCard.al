@@ -1,87 +1,83 @@
-page 123456701 "CSD Seminar Card"
+page 123456701"CSD Seminar Card"
+// CSD1.00 - 2018-01-01 - D. E. Veloper
+// Chapter 5 - Lab 2-4 & Lab 2-5
+
 {
     PageType = Card;
     SourceTable = "CSD Seminar";
-    Caption = 'Seminar Card';
 
     layout
     {
         area(content)
         {
-            group("General")
+            group(General)
             {
-                field("No.";"No.")
+                field("No."; "No.")
                 {
-                    Caption = 'No.';
+                    AssistEdit=true;
+                    trigger OnAssistEdit();
+                    begin
+                        if AssistEdit then
+                            CurrPage.Update;
+                    end;
                 }
-                field(Name;Name)
+                field(Name; Name)
                 {
-                    Caption = 'Name';
                 }
-                field("Search Name";"Search Name")
+                field("Search Name"; "Search Name")
                 {
-                    Caption = 'Search Name';
                 }
                 field("Seminar Duration";"Seminar Duration")
                 {
-                    Caption = 'Duration';
                 }
-                field("Minimum Participants";"Minimum Participants")
+                field("Minimum Participants"; "Minimum Participants")
                 {
-                    caption = 'Minimum Participants';
                 }
-                field("Maximum Participants";"Maximum Participants")
+                field("Maximum Participants"; "Maximum Participants")
                 {
-                    Caption = 'Maximum Participants';
                 }
-                field(Blocked;Blocked)
+                field(Blocked; Blocked)
                 {
-                    Caption = 'Blocked';
                 }
-                field("Last Modified Date";"Last Modified Date")
+                field("Last Date Modified"; "Last Date Modified")
                 {
-                    Caption = 'Last modified Date';
                 }
             }
-            group("Invoicing")
+            group(Invoicing)
             {
-                field("Gen. Prod. Posting Group";"Gen. Prod. Posting Group")
+                field("Gen. Prod. Posting Group"; "Gen. Prod. Posting Group")
                 {
-                    Caption = 'Gen. Prod. Posting Group';
                 }
-                field("Vat. Prod. Posting Group";"Vat. Prod. Posting Group")
+                field("VAT Prod. Posting Group"; "VAT Prod. Posting Group")
                 {
-                    Caption = 'Vat. Prod. Posting Group';
                 }
-                field(Price;Price)
+                field("Seminar Price"; "Seminar Price")
                 {
-                    Caption = 'Price';
                 }
             }
         }
         area(FactBoxes)
         {
-            systempart("Links";Links)
+            systempart("Links"; Links)
             {
-
             }
-            systempart("Notes";Notes)
+            systempart("Notes"; Notes)
             {
-
             }
         }
+
     }
 
     actions
     {
         area(Navigation)
         {
-            group("Seminar")
+            group("&Seminar")
             {
-                action("Comments")
+                action("Co&mments")
                 {
-                    //RunObject=page "Seminar Comment Sheet";
-                    //RunPageLink = "Table Name" = const(Seminar),"No." = field("No.");
+                    RunObject=page"CSD Seminar Comment Sheet";
+                    RunPageLink = "Table Name"=const(Seminar),"No."=field("No.");
                     Image = Comment;
                     Promoted = true;
                     PromotedIsBig = true;
@@ -90,7 +86,4 @@ page 123456701 "CSD Seminar Card"
             }
         }
     }
-    
-    var
-        myInt : Integer;
 }

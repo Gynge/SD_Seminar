@@ -1,12 +1,13 @@
-page 123456702 "CSD Seminar List"
+page 123456702"CSD Seminar List"
+// CSD1.00 - 2018-01-01 - D. E. Veloper
+// Chapter 5 - Lab 3-6
 {
-    Caption = 'Seminar List';
+    Caption='Seminar List';
     PageType = List;
     SourceTable = "CSD Seminar";
     Editable = false;
-    CardpageID = 123456701;
+    CardPageId = 123456701;
     UsageCategory = Lists;
-
 
     layout
     {
@@ -14,64 +15,53 @@ page 123456702 "CSD Seminar List"
         {
             repeater(Group)
             {
-                field("No.";"No.")
+                field("No."; "No.")
                 {
-                    caption = 'No.';
                 }
-                field(Name;Name)
+                field(Name; Name)
                 {
-                    Caption = 'Name';
                 }
                 field("Seminar Duration";"Seminar Duration")
                 {
-                    Caption = 'Duration';
                 }
-                field(Price;Price)
+                field("Seminar Price"; "Seminar Price")
                 {
-                    caption = 'Price';
                 }
-                field("Minimum Participants";"Minimum Participants")
+                field("Minimum Participants"; "Minimum Participants")
                 {
-                    caption = 'Minimum Participants';
                 }
-                field("Maximum Participants";"Maximum Participants")
+                field("Maximum Participants"; "Maximum Participants")
                 {
-                    caption = 'Maximum Participants';
                 }
             }
         }
-        area(factboxes)
+        area(FactBoxes)
         {
-            systempart("Links";Links)
+            systempart("Links"; Links)
             {
-
             }
-            systempart("Notes";Notes)
+            systempart("Notes"; Notes)
             {
-
             }
         }
+
     }
 
     actions
     {
         area(Navigation)
         {
-            group(Seminar)
+            group("&Seminar")
             {
-                action(Comments)
+                action("Co&mments")
                 {
-                    //RunObject=page "Seminar Comment Sheet";
-                    //RunPageLink = "Table Name"=const(Seminar),"No."=field("No.");
+                    RunObject=page"CSD Seminar Comment Sheet";
+                    RunPageLink = "Table Name"=const(Seminar),"No."=field("No.");
                     Image = Comment;
+                    Promoted = true;
+                    PromotedIsBig = true;
+                    PromotedOnly = true;
                 }
-
-            }
-            action(ActionName)
-            {
-                trigger OnAction();
-                begin
-                end;
             }
         }
     }
