@@ -40,7 +40,7 @@ page 123456713 "CSD Seminar Registration List"
                 field("Maximum Participants";"Maximum Participants")
                 {
                 }
-                field("Room Resource No.";"Room Resource No.")
+                field("Room Resource No.";"Room Code")
                 {
                 }
             }

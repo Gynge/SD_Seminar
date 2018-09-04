@@ -74,8 +74,18 @@ page 123456701"CSD Seminar Card"
         {
             group("&Seminar")
             {
+                action("Registrations")
+                {
+                    Caption='Registrations';
+                    RunObject=page"CSD Seminar Registration List";
+                    RunPageLink="Seminar No."=field("No.");
+                    Image=Timesheet;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                }
                 action("Co&mments")
                 {
+                    Caption='Comment';
                     RunObject=page"CSD Seminar Comment Sheet";
                     RunPageLink = "Table Name"=const(Seminar),"No."=field("No.");
                     Image = Comment;
@@ -83,6 +93,28 @@ page 123456701"CSD Seminar Card"
                     PromotedIsBig = true;
                     PromotedOnly = true;
                 }
+                action("Ledger Entries")
+                {
+                    Caption = 'Ledger Entries';
+                    RunObject = page "CSD Seminar Ledger Entries";
+                    RunPageLink = "Seminar No."=field("No.");
+                    Promoted = true;
+                    PromotedCategory=Process;
+                    ShortcutKey="CTRL+F7";
+                    Image=WarrantyLedger;
+                }
+            }
+        }
+        area("Processing")
+        {
+            action("Seminar Registration")
+            {
+                RunObject=page "CSD Seminar Registration";
+                RunPageLink="Seminar No."=field("No.");
+                RunPageMode=Create;
+                Image=NewTimesheet;
+                Promoted=true;
+                PromotedCategory=New;
             }
         }
     }

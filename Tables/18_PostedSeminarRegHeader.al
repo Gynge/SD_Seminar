@@ -4,7 +4,7 @@ table 123456718  "CSD Posted Seminar Reg. Header"
 // Chapter 7 - Lab 3-1
     Caption = 'Posted Seminar Reg. Header';
     LookUpPageID= "CSD Posted Seminar Reg. List";
-    DrillDownPageID= "CSD Posted Seminar Reg. List";
+    DrillDownPageId = "CSD Posted Seminar Reg. List";
 
     Fields
     {
